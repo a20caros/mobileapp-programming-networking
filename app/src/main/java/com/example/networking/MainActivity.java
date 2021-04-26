@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         try{
-            InputStream is = getApplicationContext().getAssets().open("mountains.json");
+            InputStream is = getApplicationContext().getAssets().open("Mountain");
             String s = convertStreamToString(is);
             Log.d("MainActivity","The following text was found in textfile:\n\n"+s);
         }catch (Exception e){
