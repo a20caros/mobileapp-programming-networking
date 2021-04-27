@@ -42,19 +42,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         try{
-            InputStream is = getApplicationContext().getAssets().open("berg.json");
-            String s = convertStreamToString(is);
-            Log.d("MainActivity ==>","The following text was found in textfile:\n\n"+s);
+            //InputStream is = getApplicationContext().getAssets().open("berg.json");
+            //String s = convertStreamToString(is);
+            //Log.d("MainActivity ==>","The following text was found in textfile:\n\n"+s);
 
-            Gson gson = new Gson();
-            mountains = gson.fromJson(s,Mountain[].class);
-
-            adapter = new ArrayAdapter<>(this,R.layout.list_textview,mountains);
+            adapter = new ArrayAdapter<>(this,R.layout.list_textview);
             listView = findViewById(R.id.listview);
             listView.setAdapter(adapter);
 
 
-            //new JsonTask().execute("https://wwwlab.iit.his.se/brom/kurser/mobilprog/dbservice/admin/getdataasjson.php?type=brom");
+            new JsonTask().execute("https://wwwlab.iit.his.se/brom/kurser/mobilprog/dbservice/admin/getdataasjson.php?type=brom");
         }catch (Exception e){
             Log.e("MainActivity ==>","Something went wrong when reading textfile:\n\n"+ e.getMessage());
         }
@@ -101,7 +98,17 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String json) {
-            Log.d("TAG", json);
+            Log.d("TASK", json);
+            Gson gson = new Gson();
+            mountains = gson.fromJson(json,Mountain[].class);
+            adapter = new ArrayAdapter<Mountain>(MainActivity.this,R.layout.list_textview,mountains);
+            listView = findViewById(R.id.listview);
+            listView.setAdapter(adapter);
+
+            for (int i = 0; i < mountains.length; i++) {
+                Log.d("MainActivity ==>", "Hittade ett berg" +mountains[i]);
+            }
+
         }
     }
 }
