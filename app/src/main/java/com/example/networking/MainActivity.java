@@ -6,9 +6,10 @@ import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.google.gson.Gson;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,7 +18,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -42,13 +42,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         try{
+            InputStream is = getApplicationContext().getAssets().open("berg.json");
+            String s = convertStreamToString(is);
+            Log.d("MainActivity ==>","The following text was found in textfile:\n\n"+s);
+
+            Gson gson = new Gson();
+            mountains = gson.fromJson(s,Mountain[].class);
+
             adapter = new ArrayAdapter<>(this,R.layout.list_textview,mountains);
             listView = findViewById(R.id.listview);
             listView.setAdapter(adapter);
-            //InputStream is = getApplicationContext().getAssets().open("berg");
-            //String s = convertStreamToString(is);
-            //Log.d("MainActivity ==>","The following text was found in textfile:\n\n"+s);
-            new JsonTask().execute("https://wwwlab.iit.his.se/brom/kurser/mobilprog/dbservice/admin/getdataasjson.php?type=brom");
+
+
+            //new JsonTask().execute("https://wwwlab.iit.his.se/brom/kurser/mobilprog/dbservice/admin/getdataasjson.php?type=brom");
         }catch (Exception e){
             Log.e("MainActivity ==>","Something went wrong when reading textfile:\n\n"+ e.getMessage());
         }
