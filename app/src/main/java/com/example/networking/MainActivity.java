@@ -22,7 +22,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private WebView webView;
     private Mountain[] mountains;
     ArrayAdapter<Mountain> adapter;
     private ListView listView;
@@ -43,12 +42,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         try{
-            adapter = new ArrayAdapter<Mountain>(this,R.layout.list_textview,mountains);
+            adapter = new ArrayAdapter<>(this,R.layout.list_textview,mountains);
             listView = findViewById(R.id.listview);
             listView.setAdapter(adapter);
-            InputStream is = getApplicationContext().getAssets().open("berg");
-            String s = convertStreamToString(is);
-            Log.d("MainActivity ==>","The following text was found in textfile:\n\n"+s);
+            //InputStream is = getApplicationContext().getAssets().open("berg");
+            //String s = convertStreamToString(is);
+            //Log.d("MainActivity ==>","The following text was found in textfile:\n\n"+s);
+            new JsonTask().execute("https://wwwlab.iit.his.se/brom/kurser/mobilprog/dbservice/admin/getdataasjson.php?type=brom");
         }catch (Exception e){
             Log.e("MainActivity ==>","Something went wrong when reading textfile:\n\n"+ e.getMessage());
         }
