@@ -13,15 +13,10 @@ public class Mountain {
     private Auxdata auxdata;
 
     public String getName() {
-        return name;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public String getType() {
-        return type;
+        return "Mountain" +
+                ", Name= " + name +
+                ", Type= " + type +
+                ", Location= " + location;
     }
 
     @Override

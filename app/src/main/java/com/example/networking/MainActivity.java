@@ -56,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Toast.makeText(getApplicationContext(),mountains[position].getName(),Toast.LENGTH_LONG).show();
-                    Toast.makeText(getApplicationContext(),mountains[position].getLocation(),Toast.LENGTH_LONG).show();
-                    Toast.makeText(getApplicationContext(),mountains[position].getType(),Toast.LENGTH_LONG).show();
                 }
             });
             new JsonTask().execute("https://wwwlab.iit.his.se/brom/kurser/mobilprog/dbservice/admin/getdataasjson.php?type=brom");
@@ -114,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             listView = findViewById(R.id.listview);
             listView.setAdapter(adapter);
 
-            for (int i = 0; i < mountains.length; i++) {
+            for(int i = 0; i < mountains.length; i++) {
                 Log.d("MainActivity ==>", "Hittade ett berg" +mountains[i].getName());
             }
 
