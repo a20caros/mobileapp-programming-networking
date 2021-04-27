@@ -6,8 +6,11 @@ import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -49,6 +52,12 @@ public class MainActivity extends AppCompatActivity {
             adapter = new ArrayAdapter<>(this,R.layout.list_textview);
             listView = findViewById(R.id.listview);
             listView.setAdapter(adapter);
+            listView.setOnItemClickListener (new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Toast.makeText(getApplicationContext(), mountains.getName(), Toast.LENGTH_LONG).show();
+                }
+            });
 
 
             new JsonTask().execute("https://wwwlab.iit.his.se/brom/kurser/mobilprog/dbservice/admin/getdataasjson.php?type=brom");
@@ -106,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
             listView.setAdapter(adapter);
 
             for (int i = 0; i < mountains.length; i++) {
-                Log.d("MainActivity ==>", "Hittade ett berg" +mountains[i]);
+                Log.d("MainActivity ==>", "Hittade ett berg" +mountains[i].getName());
             }
 
         }
