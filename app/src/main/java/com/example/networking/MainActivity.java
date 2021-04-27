@@ -52,14 +52,14 @@ public class MainActivity extends AppCompatActivity {
             adapter = new ArrayAdapter<>(this,R.layout.list_textview);
             listView = findViewById(R.id.listview);
             listView.setAdapter(adapter);
-            listView.setOnItemClickListener (new AdapterView.OnItemClickListener() {
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Toast.makeText(getApplicationContext(), mountains.getName(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),mountains[position].getName(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),mountains[position].getLocation(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),mountains[position].getType(),Toast.LENGTH_LONG).show();
                 }
             });
-
-
             new JsonTask().execute("https://wwwlab.iit.his.se/brom/kurser/mobilprog/dbservice/admin/getdataasjson.php?type=brom");
         }catch (Exception e){
             Log.e("MainActivity ==>","Something went wrong when reading textfile:\n\n"+ e.getMessage());

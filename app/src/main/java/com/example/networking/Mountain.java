@@ -16,6 +16,14 @@ public class Mountain {
         return name;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public String getType() {
+        return type;
+    }
+
     @Override
     public String toString() { return name; }
 
