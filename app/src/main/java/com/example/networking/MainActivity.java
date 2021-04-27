@@ -6,7 +6,9 @@ import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.webkit.WebView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,10 +19,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<Mountain> mountainArrayList=new ArrayList<>();
-    ArrayAdapter<Mountain> adapter=new ArrayAdapter<Mountain>(this, R.layout.list_textview, R.id.list_textview_xml,mountainArrayList);
+    private WebView webView;
+    private Mountain[] mountains;
+    ArrayAdapter<Mountain> adapter;
+    private ListView listView;
 
     public static String convertStreamToString(InputStream is) throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
@@ -38,11 +43,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         try{
+            adapter = new ArrayAdapter<Mountain>(this,R.layout.list_textview,mountains);
+            listView = findViewById(R.id.listview);
+            listView.setAdapter(adapter);
             InputStream is = getApplicationContext().getAssets().open("berg");
             String s = convertStreamToString(is);
-            Log.d("MainActivity","The following text was found in textfile:\n\n"+s);
+            Log.d("MainActivity ==>","The following text was found in textfile:\n\n"+s);
         }catch (Exception e){
-            Log.e("MainActivity","Something went wrong when reading textfile:\n\n"+ e.getMessage());
+            Log.e("MainActivity ==>","Something went wrong when reading textfile:\n\n"+ e.getMessage());
         }
     }
     @SuppressLint("StaticFieldLeak")

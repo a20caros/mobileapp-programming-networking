@@ -12,5 +12,4 @@ public class Mountain {
     private int cost;
     private Auxdata auxdata;
 
-
 }
