@@ -21,12 +21,15 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private Mountain[] mountains;
     ArrayAdapter<Mountain> adapter;
+    ArrayList<Mountain> list;
     private ListView listView;
 
     public static String convertStreamToString(InputStream is) throws Exception {
@@ -45,10 +48,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         try{
-            //InputStream is = getApplicationContext().getAssets().open("berg.json");
-            //String s = convertStreamToString(is);
-            //Log.d("MainActivity ==>","The following text was found in textfile:\n\n"+s);
-
+            list = new ArrayList<>();
             adapter = new ArrayAdapter<>(this,R.layout.list_textview);
             listView = findViewById(R.id.listview);
             listView.setAdapter(adapter);
