@@ -46,18 +46,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        listView = findViewById(R.id.listview);
+        list = new ArrayList<>();
+        adapter = new ArrayAdapter<>(this,R.layout.list_textview);
 
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(),mountains[position].getInfo(),Toast.LENGTH_LONG).show();
+            }
+        });
         try{
-            list = new ArrayList<>();
-            adapter = new ArrayAdapter<>(this,R.layout.list_textview);
-            listView = findViewById(R.id.listview);
-            listView.setAdapter(adapter);
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Toast.makeText(getApplicationContext(),mountains[position].getInfo(),Toast.LENGTH_LONG).show();
-                }
-            });
             new JsonTask().execute("https://wwwlab.iit.his.se/brom/kurser/mobilprog/dbservice/admin/getdataasjson.php?type=brom");
         }catch (Exception e){
             Log.e("MainActivity ==>","Something went wrong when reading textfile:\n\n"+ e.getMessage());
@@ -109,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
             Gson gson = new Gson();
             mountains = gson.fromJson(json,Mountain[].class);
             adapter = new ArrayAdapter<Mountain>(MainActivity.this,R.layout.list_textview,mountains);
-            listView = findViewById(R.id.listview);
             listView.setAdapter(adapter);
 
             for(int i = 0; i < mountains.length; i++) {
