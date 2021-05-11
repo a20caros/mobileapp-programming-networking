@@ -104,7 +104,6 @@ private class JsonTask extends AsyncTask<String, String, String> {
        Gson gson = new Gson();
        mountains = gson.fromJson(json,Mountain[].class);
        adapter = new ArrayAdapter<Mountain>(MainActivity.this,R.layout.list_textview,mountains);
-       listView = findViewById(R.id.listview);
        listView.setAdapter(adapter);
 
        for(int i = 0; i < mountains.length; i++) {
@@ -115,7 +114,7 @@ private class JsonTask extends AsyncTask<String, String, String> {
 }
 ```
 
-För att kunna exekvera ut listviewn behövs den implementeras inuti onPostExecute metoden vilket görs på samma sätt som tidigare. Med hjälp av findviewById som hämtar id:et listview. Det sätts också en ny adapter med hjälp av arrayadapter, typen Mountains samt layouten list_textview. För att kunna skriva ut namnet på bergen skapades det en for med ett villkor som säger att index (i) alltid ska läggas på med 1 vilket gör att det kommer skrivas ut ett nytt namn på ett berg så länge det finns berg tillgängliga. För att skriva ut namnet användes medlemsvariabeln mountains samt index (i) tillsammans med getname(). För att kunna parsa json användes ett GSON-bibliotek. Det första som gjordes var att implementera biblioteket. Efter det skapades det en ny class med namnet Mountain. Inuti klassen deklareras alla json filens egenskaper till privata medlemsvariabler med samma datatyp. Inuti metoden onPostExecute skapas det därefter en variabel av typen Gson med namnet gson. Därefter tilldelas variabeln mountains gson.fromJson med Mountain [ ].class. Det gör att variabeln mountains nu innehåller jsondatan.
+I setAdapter skrevs medlemsvariabeln listView som innehåller id:et ifrån listviewn vilket gör att listviewn kan skrivas ut. Det sattes också ut en ny adapter med hjälp av arrayadapter, typen Mountains samt layouten list_textview. För att kunna skriva ut namnet på bergen skapades det en for med ett villkor som säger att index (i) alltid ska läggas på med 1 vilket gör att det kommer skrivas ut ett nytt namn på ett berg så länge det finns berg tillgängliga. För att skriva ut namnet användes medlemsvariabeln mountains samt index (i) tillsammans med getInfo(). För att kunna parsa json användes ett GSON-bibliotek. Det första som gjordes var att implementera biblioteket. Efter det skapades det en ny class med namnet Mountain. Inuti klassen deklareras alla json filens egenskaper till privata medlemsvariabler med samma datatyp. Inuti metoden onPostExecute skapas det därefter en variabel av typen Gson med namnet gson. Därefter tilldelas variabeln mountains gson.fromJson med Mountain [ ].class. Det gör att variabeln mountains nu innehåller jsondatan.
 
 ```
 private String ID;
@@ -145,7 +144,7 @@ För att skriva ut namnet på bergen användes toString inuti den nya Mountain c
 ```
 
 ## Toast
-För att skapa en toast som visas när en användare klickar på ett berg skapades det en setOnitemClicklistener av listView. Inuti setOnitemClicklistener skapades det en public void med en onItemClick. Inuti onItemClick skapades det en toast som med hjälp av medlemsvariabler mountains med index position samt getname() skriver ut en toast när användaren klickar på vilket gör att fakta om berget skrivs ut. Det som gör att rätt fakta skrivs ut är på grund av medlemsvariabler mountains har index position.
+För att skapa en toast som visas när en användare klickar på ett berg skapades det en setOnitemClicklistener av listView. Inuti setOnitemClicklistener skapades det en public void med en onItemClick. Inuti onItemClick skapades det en toast som med hjälp av medlemsvariabler mountains med index position samt getInfo() skriver ut en toast när användaren klickar på vilket gör att fakta om berget skrivs ut. Det som gör att rätt fakta skrivs ut är på grund av medlemsvariabler mountains har index position.
 
 ```
 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -157,11 +156,11 @@ listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 ```
 
 
-## Getname()
-För att kunna skriva ut fakta om berget när en användaren klickar på berget i listviewn skapades det en getname() i Mountain.java. I generate valdes namn, type och location som den datan som ska skrivas ut i toasten. När getName() sedan används returneras namnet typen och platsen för berget.
+## GetInfo()
+För att kunna skriva ut fakta om berget när en användaren klickar på berget i listviewn skapades det en getInfo() i Mountain.java. I generate valdes namn, type och location som den datan som ska skrivas ut i toasten. När getInfo() sedan används returneras namnet typen och platsen för berget.
 
 ```
-public String getName() {
+public String getInfo() {
    return "Mountain" +
            ", Name= " + name +
            ", Type= " + type +
