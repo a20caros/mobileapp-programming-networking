@@ -12,7 +12,7 @@ public class Mountain {
     private int cost;
     private Auxdata auxdata;
 
-    public String getName() {
+    public String getInfo() {
         return "Mountain" +
                 ", Name= " + name +
                 ", Type= " + type +
